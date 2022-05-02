@@ -6,7 +6,7 @@ import java.util.Random;
 import javax.swing.*;
 
 public class Main extends JPanel{
-    public void go() throws IOException {
+    public void go(int q) throws IOException {
         JFrame window = new JFrame();
         window.setSize(300,300);
         window.setVisible(true);
@@ -14,7 +14,7 @@ public class Main extends JPanel{
         FileWriter write = new FileWriter("OUT.txt");
         Random gen = new Random();
 
-        for(int i=0; i<300; i++){
+        for(int i=0; i<q; i++){
             int x = gen.nextInt(300);
             int y = gen.nextInt(300);
             System.out.println(x+","+y);
@@ -36,7 +36,7 @@ public class Main extends JPanel{
         FileWriter write = new FileWriter("OUT.txt");
         Random gen = new Random();
 
-        for(int i=0; i<300; i++){
+        for(int i=0; i<900; i++){
             int x = gen.nextInt(300);
             int y = gen.nextInt(300);
             System.out.println("("+x+","+y+")");

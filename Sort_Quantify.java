@@ -15,10 +15,12 @@ public class Sort_Quantify {
         int count;
     }
 
-    public static void main(String[] args) throws IOException {
+    public void go(int q) throws IOException {
         FileWriter write = new FileWriter("OUT2.txt");
-        Vector<coordinate> cords = new Vector<>();
-        cords.addElement(new coordinate("s", 6));
+        coordinate[] cords = new coordinate[q];
+        Arrays.fill(cords, new coordinate("",0));
+        int count =0;
+        boolean ret=true;
         try {
             Scanner scan = new Scanner("OUT.txt");
             File file = new File(scan.nextLine());
@@ -28,23 +30,72 @@ public class Sort_Quantify {
                 String line = scan.nextLine();
                 System.out.println(line);
                 for(coordinate o : cords) {
+                    if(!o.name.contains(line)){
+                        continue;
+                    }
+                    else if(o.name.contains(line)){
+                        System.out.println("FOR 2");
+                        o.count++;
+                        ret=false;
+                        break;
+                    }
+
+                }
+
+            if(ret){
+                if(count >= 90000){}
+                else {
+                    coordinate nc = new coordinate(line, 1);
+                    cords[count] = nc;
+                    count++;
+                }
+            }
+            else{line = scan.nextLine();}
+
+        }
+
+            for (coordinate x : cords) {
+                System.out.println(x.name + "," + x.count);
+                write.write(x.name + ", " + x.count +"\n");
+                write.flush();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        FileWriter write = new FileWriter("OUT2.txt");
+        coordinate[] cords = new coordinate[1200];
+        Arrays.fill(cords, new coordinate("",0));
+        int count =0;
+        try {
+            Scanner scan = new Scanner("OUT.txt");
+            File file = new File(scan.nextLine());
+            scan = new Scanner(file);
+
+            while (scan.hasNextLine()) {
+                String line = scan.nextLine();
+                for(coordinate o : cords) {
                     if(o.name.equals(line)){
+                        System.out.println("FOR 2");
                         o.count++;
                         break;
                     }
-                    if(cords.get(0).name.equals("s")){
-                        coordinate nc = new coordinate(line,1);
-                        cords.set(0, nc);
+                    else {
+                        System.out.println("FOR 3");
+                        coordinate nc = new coordinate(line, 1);
+                        cords[count] = nc;
+                        count++;
                         break;
                     }
-                    coordinate nc = new coordinate(line,1);
-                    cords.addElement(nc);
 
                 }
             }
 
             for (coordinate x : cords) {
-                write.write(x.name + "," + x.count);
+                System.out.println(x.name + "," + x.count);
+                write.write(x.name + "," + x.count +"\n");
                 write.flush();
             }
         } catch (FileNotFoundException e) {
