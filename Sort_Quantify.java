@@ -15,11 +15,11 @@ public class Sort_Quantify {
         int count;
     }
 
-    public void go(int q) throws IOException {
+    public void go(int q, int h, int w) throws IOException {
         FileWriter write = new FileWriter("OUT2.txt");
         coordinate[] cords = new coordinate[q];
         Arrays.fill(cords, new coordinate("",0));
-        int count =0;
+        int count = 0;
         boolean ret=true;
         try {
             Scanner scan = new Scanner("OUT.txt");
@@ -27,32 +27,23 @@ public class Sort_Quantify {
             scan = new Scanner(file);
 
             while (scan.hasNextLine()) {
+                System.out.println("SCAN HAS NEXT LINE");
                 String line = scan.nextLine();
                 System.out.println(line);
-                for(coordinate o : cords) {
-                    if(!o.name.contains(line)){
-                        continue;
-                    }
-                    else if(o.name.contains(line)){
-                        System.out.println("FOR 2");
-                        o.count++;
+                for(int i=0; i<cords.length; i++) {
+                    if(line.contains(cords[i].name)&& cords[i].name != ""){
+                        System.out.println(cords[i].name + ", " + cords[i].count);
+                        cords[i].count++;
                         ret=false;
                         break;
                     }
+                    else{
+                        ret=true;
+                        continue;
+                    }
 
-                }
-
-            if(ret){
-                if(count >= 90000){}
-                else {
-                    coordinate nc = new coordinate(line, 1);
-                    cords[count] = nc;
-                    count++;
                 }
             }
-            else{line = scan.nextLine();}
-
-        }
 
             for (coordinate x : cords) {
                 System.out.println(x.name + "," + x.count);
@@ -76,30 +67,32 @@ public class Sort_Quantify {
 
             while (scan.hasNextLine()) {
                 String line = scan.nextLine();
-                for(coordinate o : cords) {
-                    if(o.name.equals(line)){
-                        System.out.println("FOR 2");
-                        o.count++;
-                        break;
-                    }
-                    else {
-                        System.out.println("FOR 3");
-                        coordinate nc = new coordinate(line, 1);
-                        cords[count] = nc;
-                        count++;
-                        break;
-                    }
+                for(int i =0; i< count; i++){
 
+                        if(line.contains(cords[i].name)){
+                            System.out.println("FOR 2");
+                            cords[i].count++;
+                            break;
+                        }
+                        else {
+                            System.out.println("FOR 3");
+                            coordinate nc = new coordinate(line, 1);
+                            cords[count] = nc;
+                            count++;
+                            break;
+                        }
+
+                    }
                 }
-            }
+            } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
-            for (coordinate x : cords) {
+        for (coordinate x : cords) {
                 System.out.println(x.name + "," + x.count);
                 write.write(x.name + "," + x.count +"\n");
                 write.flush();
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
-    }
+
 }
