@@ -46,7 +46,7 @@ public class Main extends JPanel{
                     graphics.setPaint(Color.BLUE);
                 case "YELLOW":
                     graphics.setPaint(Color.YELLOW);
-                case "CYan":
+                case "CYAN":
                     graphics.setPaint(Color.CYAN);
                 case "MAGENTA":
                     graphics.setPaint(Color.MAGENTA);
@@ -60,7 +60,7 @@ public class Main extends JPanel{
                     graphics.setPaint(Color.DARK_GRAY);
                 case "ORANGE":
                     graphics.setPaint(Color.ORANGE);
-                case "Pink":
+                case "PINK":
                     graphics.setPaint(Color.PINK);
             }
         }
