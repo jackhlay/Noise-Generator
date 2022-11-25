@@ -34,7 +34,9 @@ public class Main extends JPanel{
         BufferedImage canvas = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D    graphics = canvas.createGraphics();
 
-        if(c.equals("RED")){
+        if(c==null){
+        graphics.setPaint(Color.BLACK);}
+        else if(c.equals("RED")){
         graphics.setPaint ( Color.RED );}
         else if(c.equals("CYAN")){
             graphics.setPaint ( Color.CYAN );}
@@ -42,6 +44,7 @@ public class Main extends JPanel{
             graphics.setPaint ( Color.YELLOW );}
         else if(c.equals("PINK")){
             graphics.setPaint ( Color.PINK );}
+
         graphics.fillRect ( 0, 0, canvas.getWidth(), canvas.getHeight() );
 
         JPanel save = new JPanel();
