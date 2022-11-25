@@ -79,7 +79,7 @@ public class Main extends JPanel{
             }
         });
 
-        FileWriter write = new FileWriter("OUT.txt");
+        FileWriter write = new FileWriter("coords.txt");
         Random gen = new Random();
 
         for(int i=0; i<q; i++){
