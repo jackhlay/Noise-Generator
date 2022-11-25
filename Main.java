@@ -15,7 +15,8 @@ import javax.swing.*;
 
 
 public class Main extends JPanel{
-    public void go(int q, int h, int w) throws IOException {
+    public void go(int q, int h, int w, String c) throws IOException {
+
         class coordinate{
             int count;
             int x;
@@ -33,7 +34,14 @@ public class Main extends JPanel{
         BufferedImage canvas = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D    graphics = canvas.createGraphics();
 
-        graphics.setPaint ( new Color ( 30, 168, 150) );
+        if(c.equals("RED")){
+        graphics.setPaint ( Color.RED );}
+        else if(c.equals("CYAN")){
+            graphics.setPaint ( Color.CYAN );}
+        else if(c.equals("YELLOW")){
+            graphics.setPaint ( Color.YELLOW );}
+        else if(c.equals("PINK")){
+            graphics.setPaint ( Color.PINK );}
         graphics.fillRect ( 0, 0, canvas.getWidth(), canvas.getHeight() );
 
         JPanel save = new JPanel();
@@ -94,10 +102,15 @@ public class Main extends JPanel{
         JLabel l1 = new JLabel("# of attempts");
         JLabel l2 = new JLabel("Image Width");
         JLabel l3 = new JLabel("Image Height");
+        JLabel l4 = new JLabel("Color");
 
-        JTextField T1 = new JTextField();
-        JTextField T2 = new JTextField();
-        JTextField T3 = new JTextField();
+
+
+        JTextField T1 = new JTextField("810000");
+        JTextField T2 = new JTextField("900");
+        JTextField T3 = new JTextField("900");
+        String C[] = {"RED", "BLUE", "CYAN","YELLOW","PINK"};
+        JList clr = new JList(C);
 
         JButton send = new JButton("Generate");
 
@@ -105,13 +118,15 @@ public class Main extends JPanel{
         start.setLayout(new BorderLayout());
         start.add(send, BorderLayout.SOUTH);
         start.add(container, BorderLayout.CENTER);
-        container.setLayout(new GridLayout(3,2));
+        container.setLayout(new GridLayout(4,2));
         container.add(l1);
         container.add(T1);
         container.add(l2);
         container.add(T2);
         container.add(l3);
         container.add(T3);
+        container.add(l4);
+        container.add(clr);
 
         send.addActionListener(new ActionListener() {
             @Override
@@ -119,8 +134,9 @@ public class Main extends JPanel{
                 int num = Integer.parseInt(T1.getText());
                 int h = Integer.parseInt(T3.getText());
                 int w = Integer.parseInt(T2.getText());
+                String c = (String) clr.getSelectedValue();
                 try {
-                    go(num, h, w);
+                    go(num, h, w, c);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
