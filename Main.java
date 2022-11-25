@@ -1,14 +1,18 @@
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.*;
+
 
 public class Main extends JPanel{
     public void go(int q, int h, int w) throws IOException {
@@ -27,16 +31,42 @@ public class Main extends JPanel{
         ArrayList<coordinate> clst = new ArrayList<coordinate>(q);
 
         BufferedImage canvas = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D    graphics = canvas.createGraphics();
+
+        graphics.setPaint ( new Color ( 30, 168, 150) );
+        graphics.fillRect ( 0, 0, canvas.getWidth(), canvas.getHeight() );
+
+        JPanel save = new JPanel();
+        JTextField nam = new JTextField();
+        JButton sb = new JButton("Save Image");
+        save.setLayout(new GridLayout(1,2));
+        save.add(nam);
+        save.add(sb);
 
         JFrame frame = new JFrame() {
             {
+                setLayout(new BorderLayout());
                 final JLabel label = new JLabel("", new ImageIcon(canvas), 0);
-                add(label);
+                add(label, BorderLayout.CENTER);
+                add(save, BorderLayout.SOUTH);
                 pack();
                 setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 setVisible(true);
             }
         };
+
+        sb.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String str = nam.getText() + ".png";
+                File outputfile = new File(str);
+                try {
+                    ImageIO.write(canvas, "png", outputfile);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
 
         FileWriter write = new FileWriter("OUT.txt");
         Random gen = new Random();
@@ -62,8 +92,8 @@ public class Main extends JPanel{
         container.setVisible(true);
         start.setSize(600,600);
         JLabel l1 = new JLabel("# of attempts");
-        JLabel l2 = new JLabel("Image Height");
-        JLabel l3 = new JLabel("Image Width");
+        JLabel l2 = new JLabel("Image Width");
+        JLabel l3 = new JLabel("Image Height");
 
         JTextField T1 = new JTextField();
         JTextField T2 = new JTextField();
@@ -71,6 +101,7 @@ public class Main extends JPanel{
 
         JButton send = new JButton("Generate");
 
+        start.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         start.setLayout(new BorderLayout());
         start.add(send, BorderLayout.SOUTH);
         start.add(container, BorderLayout.CENTER);
@@ -86,8 +117,8 @@ public class Main extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 int num = Integer.parseInt(T1.getText());
-                int h = Integer.parseInt(T2.getText());
-                int w = Integer.parseInt(T3.getText());
+                int h = Integer.parseInt(T3.getText());
+                int w = Integer.parseInt(T2.getText());
                 try {
                     go(num, h, w);
                 } catch (IOException ex) {
