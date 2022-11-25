@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.*;
-
 
 public class Main extends JPanel{
     public void go(int q, int h, int w, String c) throws IOException {
@@ -34,16 +32,38 @@ public class Main extends JPanel{
         BufferedImage canvas = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D    graphics = canvas.createGraphics();
 
-        if(c==null){
-        graphics.setPaint(Color.BLACK);}
-        else if(c.equals("RED")){
-        graphics.setPaint ( Color.RED );}
-        else if(c.equals("CYAN")){
-            graphics.setPaint ( Color.CYAN );}
-        else if(c.equals("YELLOW")){
-            graphics.setPaint ( Color.YELLOW );}
-        else if(c.equals("PINK")){
-            graphics.setPaint ( Color.PINK );}
+        if(c == null){
+            graphics.setPaint ( Color.BLACK );
+        }
+        else {
+
+            switch (c) {
+                case "RED":
+                    graphics.setPaint(Color.RED);
+                case "GREEN":
+                    graphics.setPaint(Color.GREEN);
+                case "BLUE":
+                    graphics.setPaint(Color.BLUE);
+                case "YELLOW":
+                    graphics.setPaint(Color.YELLOW);
+                case "CYan":
+                    graphics.setPaint(Color.CYAN);
+                case "MAGENTA":
+                    graphics.setPaint(Color.MAGENTA);
+                case "WHITE":
+                    graphics.setPaint(Color.WHITE);
+                case "GRAY":
+                    graphics.setPaint(Color.GRAY);
+                case "LIGHT_GRAY":
+                    graphics.setPaint(Color.LIGHT_GRAY);
+                case "DARK_GRAY":
+                    graphics.setPaint(Color.DARK_GRAY);
+                case "ORANGE":
+                    graphics.setPaint(Color.ORANGE);
+                case "Pink":
+                    graphics.setPaint(Color.PINK);
+            }
+        }
 
         graphics.fillRect ( 0, 0, canvas.getWidth(), canvas.getHeight() );
 
@@ -61,7 +81,6 @@ public class Main extends JPanel{
                 add(label, BorderLayout.CENTER);
                 add(save, BorderLayout.SOUTH);
                 pack();
-                setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 setVisible(true);
             }
         };
@@ -112,7 +131,8 @@ public class Main extends JPanel{
         JTextField T1 = new JTextField("810000");
         JTextField T2 = new JTextField("900");
         JTextField T3 = new JTextField("900");
-        String C[] = {"RED", "BLUE", "CYAN","YELLOW","PINK"};
+        String C[] = {"RED", "GREEN", "BLUE", "YELLOW", "CYAN","MAGENTA", "WHITE", "BLACK", "GRAY",
+                "LIGHT_GRAY", "DARK_GRAY", "ORANGE", "PINK"};
         JList clr = new JList(C);
 
         JButton send = new JButton("Generate");
@@ -130,6 +150,7 @@ public class Main extends JPanel{
         container.add(T3);
         container.add(l4);
         container.add(clr);
+        container.add(new JScrollPane(clr));
 
         send.addActionListener(new ActionListener() {
             @Override
